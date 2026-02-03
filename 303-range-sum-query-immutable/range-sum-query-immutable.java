@@ -1,15 +1,17 @@
 class NumArray {
-    int arr[];
+    int pre[]; //prefix sum array
     public NumArray(int[] nums) {
-        arr=nums;
+        pre=nums;
+        //constructor ek bar call hoga toh ek hi baar prefix sum banega toh yahan prefix sum array banaayenge naaki sumrange mai bnaayenge
+        for (int i=1; i<nums.length; i++) {
+            pre[i]=pre[i-1]+nums[i];
+        }
     }
     
     public int sumRange(int left, int right) {
-        int sum=0;
-        for (int i=left; i<=right; i++) {
-            sum+=arr[i];
-        }
-        return sum;
+        if (left==0) return pre[right];
+        
+        return pre[right]-pre[left-1];
     }
 }
 
