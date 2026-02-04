@@ -5,14 +5,14 @@ class Solution {
         int maxcount=Integer.MIN_VALUE;
         while (end<s.length()) {
             if (s.charAt(end)=='a' || s.charAt(end)=='e' || s.charAt(end)=='i' || s.charAt(end)=='o' || s.charAt(end)=='u') {
-                count++;
+                count++; //include end
             }
             if (end>=k-1) {
                 maxcount=Math.max(count, maxcount);
                 if (s.charAt(start)=='a' || s.charAt(start)=='e' || s.charAt(start)=='i' || s.charAt(start)=='o' || s.charAt(start)=='u') {
-                count--;
+                    count--; //exclude start ka count
                 }
-                start++;
+                start++; //exclude start
             }
             end++;
         }
