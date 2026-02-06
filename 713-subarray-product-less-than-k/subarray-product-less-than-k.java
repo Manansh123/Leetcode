@@ -5,7 +5,6 @@ class Solution {
         while (end<nums.length) {
             pro*=nums[end];
             while (pro>=k) {
-            // else {
                 pro/=nums[start];
                 start++;
             }
