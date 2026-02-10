@@ -18,23 +18,18 @@ class Solution {
         for (int i=0; i<visited.length; i++) {
             if (!visited[i]) {
                 count++;
-                bfs(adj, visited, i);
+                dfs(adj, visited, i);
             } 
         }
         return count;
     }
-    public void bfs(ArrayList<ArrayList<Integer>> adj, boolean[] visited, int start) {
-        Queue<Integer> q=new LinkedList<>();
-        q.add(start);
+    public void dfs(ArrayList<ArrayList<Integer>> adj, boolean[] visited, int start) {
         visited[start]=true;
-        while (!q.isEmpty()) {
-            int curr=q.poll();
-            for (int i=0; i<adj.get(curr).size(); i++) {
-                int neighbour=adj.get(curr).get(i);
-                if (!visited[neighbour]) {
-                    visited[neighbour]=true;
-                    q.add(neighbour);
-                }
+        for (int i=0; i<adj.get(start).size(); i++) {
+            int neighbour=adj.get(start).get(i);
+            if (!visited[neighbour]) {
+                visited[neighbour]=true;
+                dfs(adj, visited, neighbour);
             }
         }
     }
