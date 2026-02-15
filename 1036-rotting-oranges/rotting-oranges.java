@@ -20,6 +20,7 @@ class Solution {
             for (int j=0; j<m; j++) {
                 if (grid[i][j]==2 && !visited[i][j]) {
                     q.add(new pair(i, j));
+                    visited[i][j]=true;
                 }
                 if (grid[i][j]==1) onecount++;
             }
