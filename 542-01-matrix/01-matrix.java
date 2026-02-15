@@ -9,37 +9,36 @@ class Solution {
     }
     int[] rowdirection={-1, 0, 0, 1};
     int[] coldirection={0, 1, -1, 0};
-    public int[][] updateMatrix(int[][] mat) {
-        int n=mat.length;
-        int m=mat[0].length;
-        boolean[][] visited=new boolean[n][m];
-        int[][] ans=new int[n][m];
+    public int[][] updateMatrix(int[][] grid) {
+        int n=grid.length;
+        int m=grid[0].length;
         Queue<pair> q=new LinkedList<>();
+        boolean[][] visited=new boolean[n][m];
         for (int i=0; i<n; i++) {
             for (int j=0; j<m; j++) {
-                if (mat[i][j]==0 && !visited[i][j]) {
+                if (grid[i][j]==0 && !visited[i][j]) {
                     q.add(new pair(i, j));
                     visited[i][j]=true;
                 }
             }
         }
-        while (!q.isEmpty()) {
+        while(!q.isEmpty()) {
             int size=q.size();
-            while(size>0) {
+            while (size > 0) {
                 pair curr=q.poll();
                 size--;
                 for (int i=0; i<4; i++) {
                     int neighrow=curr.row+rowdirection[i];
                     int neighcol=curr.col+coldirection[i];
-                    if (isvalid(neighrow, neighcol, n, m) && mat[neighrow][neighcol]==1 && !visited[neighrow][neighcol]) {
+                    if (isvalid(neighrow, neighcol, n, m) && grid[neighrow][neighcol]==1 && !visited[neighrow][neighcol]) {
                         q.add(new pair(neighrow, neighcol));
                         visited[neighrow][neighcol]=true;
-                        ans[neighrow][neighcol]=ans[curr.row][curr.col]+1;
+                        grid[neighrow][neighcol]=grid[curr.row][curr.col]+1;
                     }
                 }
             }
         }
-        return ans;
+        return grid;
     }
     public boolean isvalid(int row, int col, int n, int m) {
         return (row>=0 && row<n && col>=0 && col<m);
