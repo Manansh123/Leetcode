@@ -25,19 +25,18 @@ class Solution {
         q.add(new pair(src, 0));
         while (!q.isEmpty()) {
             pair curr = q.poll();
-            if (curr.weight > dist[curr.node])
-                continue;
+            if (curr.weight > dist[curr.node]) continue;
             for (pair neighbor : adj.get(curr.node)) {
                 int neighnode = neighbor.node;
                 int neighweight = neighbor.weight;
-                if (curr.weight + neighweight < dist[neighnode]) {
+                if (dist[curr.node] + neighweight < dist[neighnode]) {
                     dist[neighnode] = curr.weight + neighweight;
                     q.add(new pair(neighnode, dist[neighnode]));
                 }
             }
         }
+        //shortest mai sbme se bda wala dhondenge
         int max = 0;
-
         for (int i = 1; i <= v; i++) {
             if (dist[i] == Integer.MAX_VALUE)
                 return -1;
