@@ -1,17 +1,14 @@
 class Solution {
     public int lastStoneWeight(int[] stones) {
-         PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a,b) -> b - a);
-        for (int s : stones) {
-            maxHeap.add(s);
+        PriorityQueue<Integer> maxheap=new PriorityQueue<>((a, b) -> b-a);
+        for(int i : stones) {
+            maxheap.add(i);
         }
-        while (maxHeap.size() > 1) {
-            int y = maxHeap.poll(); // heaviest
-            int x = maxHeap.poll(); // second heaviest
-
-            if (y != x) {
-                maxHeap.add(y - x);
-            }
+        while (maxheap.size()>1) {
+            int x=maxheap.poll();
+            int y=maxheap.poll();
+            if (x!=y) maxheap.add(x-y);
         }
-        return maxHeap.isEmpty() ? 0 : maxHeap.peek();
+        return (maxheap.isEmpty()) ? 0 : maxheap.peek();
     }
 }
