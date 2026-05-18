@@ -2,19 +2,26 @@ class Solution {
     public int uniquePathsWithObstacles(int[][] grid) {
         int n=grid.length, m=grid[0].length;
         int[][] dp= new int[n][m];
-        for (int i=0; i<n; i++) Arrays.fill(dp[i], -1);
-        return solve(0, 0, n, m, grid, dp);
-    }
-    public int solve(int i, int j, int n, int m, int[][] grid, int[][] dp) {
-        if (i>=n || j>=m) return 0;
-        if (grid[i][j]==1) return 0;
-        if (i==n-1 && j==m-1) return 1;
-        if (dp[i][j]!=-1) return dp[i][j];
-        int down=0, right=0;
-        if (grid[i][j]==0) {
-            down=solve(i+1, j, n, m, grid, dp);
-            right=solve(i, j+1, n, m, grid, dp);
+        for (int i=1; i<n; i++) Arrays.fill(dp[i], -1);
+        if (grid[0][0]==1) return 0;
+        dp[0][0]=1;
+        for (int i=1; i<m; i++) {
+            dp[0][i]=(grid[0][i]==0) ? dp[0][i-1] : 0;
         }
-        return dp[i][j]=down+right;
+        for (int i=1; i<n; i++) {
+            dp[i][0]=(grid[i][0]==0) ? dp[i-1][0] : 0;
+        }
+        for (int i=1; i<n; i++) {
+            for (int j=1; j<m; j++) {
+                int down=0, right=0;
+                if (grid[i][j]==0) {
+                    if (i>0) down=dp[i-1][j];
+                    if (j>0) right=dp[i][j-1];
+                    dp[i][j]=down+right;
+                }
+                else dp[i][j]=0;
+            }
+        }
+        return dp[n-1][m-1];
     }
 }
