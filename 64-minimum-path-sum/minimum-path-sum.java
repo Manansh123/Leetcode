@@ -6,24 +6,17 @@ class Solution {
         for (int i = 0; i < n; i++) {
             Arrays.fill(dp[i], -1);
         }
-        return solve(0, 0, n, m, grid, dp);
-    }
-    public int solve(int i, int j, int n, int m, int[][] grid, int[][] dp) {
-        if (i >= n || j >= m) {
-            return Integer.MAX_VALUE;
+        dp[0][0]=grid[0][0];
+        for (int i=1; i<m; i++) dp[0][i]=grid[0][i]+dp[0][i-1];
+        for (int i=1; i<n; i++) dp[i][0]=grid[i][0]+dp[i-1][0];
+        for (int i=1; i<n; i++) {
+            for (int j=1; j<m; j++) {
+                int down=0, right=0;
+                if (i>0) down=dp[i-1][j];
+                if (j>0) right=dp[i][j-1];
+                dp[i][j]=grid[i][j]+Math.min(down, right);
+            }
         }
-        if (i == n - 1 && j == m - 1) {
-            return grid[i][j];
-        }
-        if (dp[i][j] != -1) {
-            return dp[i][j];
-        }
-        int down = solve(i + 1, j, n, m, grid, dp);
-        int right = solve(i, j + 1, n, m, grid, dp);
-        int min = Math.min(down, right);
-        if (min == Integer.MAX_VALUE) {
-            return dp[i][j] = Integer.MAX_VALUE;
-        }
-        return dp[i][j] = grid[i][j] + min;
+        return dp[n-1][m-1];
     }
 }
