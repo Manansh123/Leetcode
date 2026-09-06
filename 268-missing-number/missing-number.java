@@ -1,11 +1,11 @@
+// a ^ a = 0
+// a ^ 0 = a
 class Solution {
     public int missingNumber(int[] nums) {
-        int n=nums.length;
-        int total=(n*(n+1))/2;
-        int sumarr=0;
-        for (int i : nums) {
-            sumarr+=i;
+        int res=0;
+        for (int i=0; i<nums.length; i++) {
+            res=res^i^nums[i];
         }
-        return total-sumarr;
+        return res^nums.length;
     }
 }
